@@ -25,7 +25,7 @@ async function main() {
 }
 
 // Show all blogs
-app.get("/allBlog", async (req, res) => {
+app.get("/blogs", async (req, res) => {
   try {
     const blogs = await Blog.find(); 
     res.render("index", { blogs });
@@ -45,7 +45,7 @@ app.post("/blog", async (req, res) => {
   const newBlog = new Blog({ title, content }); 
   try {
     await newBlog.save(); 
-    res.redirect("/allBlog");
+    res.redirect("/blogs");
   } catch (err) {
     res.status(400).send("Error creating blog");
   }
@@ -73,7 +73,7 @@ app.put("/blogs/:id", async (req, res) => {
     if (!blog) {
       return res.status(404).send("Blog not found!");
     }
-    res.redirect("/allBlog");
+    res.redirect("/blogs");
   } catch (err) {
     res.status(400).send("Error updating blog");
   }
@@ -95,13 +95,16 @@ app.get("/blogs/:id", async (req, res) => {
 // Delete blog
 app.delete("/blogs/:id", async (req, res) => {
   try {
-    await Blog.findByIdAndDelete(req.params.id); 
-    res.redirect("/allBlog");
+    const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
+    if (!deletedBlog) {
+      return res.status(404).send("Blog not found!");
+    }
+    res.redirect("/blogs");
   } catch (err) {
     res.status(500).send("Error deleting blog");
   }
 });
 
 app.listen(3000, () => {
-  console.log("Listening at port 3000");
+  console.log("http://localhost:3000/blogs");
 });
