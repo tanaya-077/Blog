@@ -2,10 +2,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-
-
-// Define the schema for the blog
 const blogSchema = new Schema({
   title: {
     type: String,
@@ -19,6 +15,5 @@ const blogSchema = new Schema({
   }
 });
 
-// Create and export the Blog model
 
 module.exports = mongoose.model('Blog', blogSchema);

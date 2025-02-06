@@ -9,19 +9,32 @@
         text-decoration: none !important;
         color: #000;
      }
-     
+     h1{
+        position: relative;
+        text-align: center;
+     }
+     .buttons{
+        position: relative;
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+     }
+
 </style>
-    <h1>Simple Blog</h1>
+    <h1>Create & Read the  Blogs!!</h1>
     <a href="/new" class="btn btn-primary mb-4">Create New Blog</a>
     <ul class="card">
         <% blogs.forEach(blog => { %>
             <div class="card-body">
             <li class="card-subtitle mb-2 text-body-secondary">
                 <h2 class="links"><a href="/blogs/<%= blog.id %>"><%= blog.title %></a></h2>
-                <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mb-2">Edit</a>
-                <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST">
-                    <button type="submit" class="btn btn-danger"mt-2>Delete</button>
-                </form>
+                <div class="buttons">
+                    <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mb-2">Edit</a>
+                    <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger"mt-2>Delete</button>
+                    </form>
+    
+                </div>
             </li>
             </div>
             <hr>
