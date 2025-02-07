@@ -1,35 +1,45 @@
-<!-- navbar -->
-
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
+
     <a class="navbar-brand" href="/blogs"><i class="fa-solid fa-feather"></i></a>
+
+  
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active"href="/blogs">Home</a>
+          <a class="nav-link active" href="/blogs">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </div>
-    <div class="navbar-nav ms-auto me-4">
-   
-      <a class="nav-link"href="/signup">Signup</a>
-      <a class="nav-link"href="/login">Login</a>
     
-      <a class="nav-link" href="/logout">Logout</a>
+
+
+        <!-- search -->
+        <div class="ms-auto mt-2 px-4">
+          <form class="d-flex " role="search">
+            <input class="form-control me-2" type="search" placeholder="Search destinations" id="search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          </div>
+  
+  
+
+      </ul>
+
       
-  
-</div>
+
+      <div class="navbar-nav p-4">
+        <% if (!currentUser) { %>
+          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Log in</b></a>
+        <% } else { %>
+          <a class="nav-link" href="/logout"><b>Log out</b></a>
+        <% } %>
+      </div>
+    </div>
   </div>
-
-
-  
 </nav>

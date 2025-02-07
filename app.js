@@ -82,12 +82,8 @@ app.post("/blog", isLoggedIn,async (req, res) => {
   const { title, content } = req.body;
   const newBlog = new Blog({ title, content });
   try {
-<<<<<<< HEAD
-    await newBlog.save(); 
-=======
     await newBlog.save();
     req.flash("success", "Blog is Created!!!");
->>>>>>> 840314c ( update app.js)
     res.redirect("/blogs");
   } catch (err) {
     res.status(400).send("Error creating blog");
@@ -116,10 +112,7 @@ app.put("/blogs/:id", isLoggedIn,async (req, res) => {
     if (!blog) {
       return res.status(404).send("Blog not found!");
     }
-<<<<<<< HEAD
-=======
     req.flash("success", "Blog is Updated");
->>>>>>> 840314c ( update app.js)
     res.redirect("/blogs");
   } catch (err) {
     res.status(400).send("Error updating blog");
@@ -142,23 +135,14 @@ app.get("/blogs/:id",isLoggedIn, async (req, res) => {
 // Delete blog
 app.delete("/blogs/:id",isLoggedIn, async (req, res) => {
   try {
-<<<<<<< HEAD
-    const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
-    if (!deletedBlog) {
-      return res.status(404).send("Blog not found!");
-    }
-=======
     await Blog.findByIdAndDelete(req.params.id);
     req.flash("success", "Sucessfully Deleted");
->>>>>>> 840314c ( update app.js)
     res.redirect("/blogs");
   } catch (err) {
     res.status(500).send("Error deleting blog");
   }
 });
 
-<<<<<<< HEAD
-=======
 //*users
 app.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
@@ -213,7 +197,6 @@ app.get("/logout",(req,res,next)=>{
   });
 })
 
->>>>>>> 840314c ( update app.js)
 app.listen(3000, () => {
   console.log("http://localhost:3000/blogs");
 });
