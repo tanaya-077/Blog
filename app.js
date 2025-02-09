@@ -11,7 +11,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-const { isLoggedIn } = require("./middleware.js");
+const { isLoggedIn ,isOwner} = require("./middleware.js");
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -73,17 +73,23 @@ app.get("/blogs", async (req, res) => {
 });
 
 // Form to create a new blog
-app.get("/new", isLoggedIn,(req, res) => {
+app.get("/new" ,isLoggedIn,(req, res) => {
   res.render("new");
 });
 
 // Create new blog
-app.post("/blog", isLoggedIn,async (req, res) => {
+app.post("/blog" ,isLoggedIn,async (req, res) => {
   const { title, content } = req.body;
-  const newBlog = new Blog({ title, content });
+  const newBlog = new Blog({
+    title,
+    content,
+    owner: req.user._id,
+    ownerUsername: req.user.username,
+  });
+  // console.log(req.user.username);
   try {
     await newBlog.save();
-    req.flash("success", "Blog is Created!!!");
+    req.flash("success", "Blog Created by " + req.user.username);
     res.redirect("/blogs");
   } catch (err) {
     res.status(400).send("Error creating blog");
@@ -91,7 +97,7 @@ app.post("/blog", isLoggedIn,async (req, res) => {
 });
 
 // Show blog edit form
-app.get("/blogs/:id/edit",isLoggedIn, async (req, res) => {
+app.get("/blogs/:id/edit",isLoggedIn,isOwner, async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
     if (!blog) {
@@ -104,7 +110,7 @@ app.get("/blogs/:id/edit",isLoggedIn, async (req, res) => {
 });
 
 // Update blog
-app.put("/blogs/:id", isLoggedIn,async (req, res) => {
+app.put("/blogs/:id", isLoggedIn,isOwner,async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
   try {
@@ -133,7 +139,7 @@ app.get("/blogs/:id",isLoggedIn, async (req, res) => {
 });
 
 // Delete blog
-app.delete("/blogs/:id",isLoggedIn, async (req, res) => {
+app.delete("/blogs/:id",isLoggedIn, isOwner,async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
     req.flash("success", "Sucessfully Deleted");

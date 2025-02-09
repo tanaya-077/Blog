@@ -1,13 +1,24 @@
+<style>
+    h1{
+        color: brown;
+    }
+    .new{
+        padding: 1rem;
+    }
+</style>
+
+
 <% layout("/layouts/boilerplate") %>
 
     <h1>Create blog</h1>
-    <div class="mb-3"></div>
+    <div class="mb-3 new"></div>
     <form action="/blog" method="POST" class="new-form">
-        <label for="title" class="form-label">Enter title of your blog</label>
-        <input type="text" name="title" id="name"class="form-control" required>
-        <label for="content" class="form-label">Content</label>
+        <label for="title" class="form-label"><b>Enter title of your blog</b></label>
+        <input type="text" name="title" id="title" class="form-control" required>
+        <label for="content" class="form-label"><b>Content</b></label>
 
-        <textarea name="content" id="content"class="form-control" placeholder="Content of your blog" cols="6" rows="3"></textarea>
-        <button class="btn btn-success mt-3">create</button>
+        <textarea name="content" id="content" class="form-control" placeholder="Content of your blog" cols="6" rows="3"></textarea>
+        <button class="btn btn-success mt-3">Create</button>
     </form>
 </div>
+

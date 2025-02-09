@@ -12,7 +12,12 @@ const blogSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-  }
+  },
+  owner :{
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  ownerUsername: { type: String, required: true }
 });
 
 

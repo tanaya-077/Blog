@@ -28,11 +28,14 @@
             <div class="card-body">
             <li class="card-subtitle mb-2 text-body-secondary">
                 <h2 class="links"><a href="/blogs/<%= blog.id %>"><%= blog.title %></a></h2>
+                <p>Created by: <strong><%= blog.ownerUsername %></strong></p>
                 <div class="buttons">
-                    <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mb-2">Edit</a>
-                    <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-danger"mt-2>Delete</button>
-                    </form>
+                    <% if (currentUser && currentUser._id.equals(blog.owner)) { %>
+                        <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mt-2">Edit</a>
+                        <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                        </form>
+                    <% } %>
     
                 </div>
             </li>
@@ -40,4 +43,4 @@
             <hr>
         <% }) %>
     </ul>
-
+    

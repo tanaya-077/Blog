@@ -9,12 +9,13 @@
   <div class="card-body">
     <h1 class="card-title"><%= blog.title %></h1>
     <p class="card-text"><%= blog.content %></p>
+    <% if (currentUser && currentUser._id.equals(blog.owner)) { %>
+
     <a href="/blogs" class="btn btn-light mb-2">Back</a>
-    <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mb-2">Edit</a>
+    <a href="/blogs/<%= blog.id %>/edit" class="btn btn-light mb-3">Edit</a>
+    <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST" class="mb-2 p-2">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <% } %>
   </div>
-
-  <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST" class="mb-2 p-2">
-    <button type="submit" class="btn btn-danger">Delete</button>
-  </form>
 </div>
-
